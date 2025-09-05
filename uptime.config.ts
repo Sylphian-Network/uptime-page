@@ -1,9 +1,9 @@
 import { MaintenanceConfig, PageConfig, WorkerConfig } from './types/config'
 
 const pageConfig: PageConfig = {
-  title: "Sylphian's Status Page",
+  title: "Sylphian's Uptime",
   links: [
-    { link: 'https://github.com/Sylphian-Network/uptime-page', label: 'GitHub' },
+    { link: 'https://github.com/Sylphian-Network/uptime-page', label: 'GitHub Page' },
   ],
   group: {
     'Website': ['forum_monitor'],
