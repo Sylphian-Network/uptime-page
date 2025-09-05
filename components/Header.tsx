@@ -23,7 +23,7 @@ export default function Header() {
       <Container size="md" className={classes.inner}>
         <div>
           <Text size="xl" span fw={700}>
-            Sylphian's Uptime
+            {"Sylphian's Uptime"}
           </Text>
         </div>
 
