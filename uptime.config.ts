@@ -27,6 +27,7 @@ const workerConfig: WorkerConfig = {
       },
       responseKeyword: 'Community platform by XenForo',
       responseForbiddenKeyword: 'bad gateway',
+      checkProxy: 'worker://weur',
       checkProxyFallback: true,
     },
   ],
