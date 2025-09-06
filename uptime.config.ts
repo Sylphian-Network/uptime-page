@@ -3,7 +3,7 @@ import { MaintenanceConfig, PageConfig, WorkerConfig } from './types/config'
 const pageConfig: PageConfig = {
   title: "Sylphian's Uptime",
   links: [
-    { link: 'https://github.com/Sylphian-Network/uptime-page', label: 'GitHub Page' },
+    { link: 'https://github.com/Sylphian-Network/', label: 'GitHub' },
   ],
   group: {
     'Website': ['forum_monitor'],
@@ -21,7 +21,7 @@ const workerConfig: WorkerConfig = {
       statusPageLink: 'https://sylphian.net',
       hideLatencyChart: false,
       expectedCodes: [200],
-      timeout: 10000,
+      timeout: 5000,
       headers: {
         'User-Agent': 'Sylphian-Uptimeflare',
       },
