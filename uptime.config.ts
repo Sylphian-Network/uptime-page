@@ -70,18 +70,17 @@ const maintenances: MaintenanceConfig[] = [
     // [Optional] Monitor IDs to be affected by this maintenance
     monitors: ['forum_monitor'],
     // [Optional] default to "Scheduled Maintenance" if not specified
-    title: 'Test Maintenance',
+    title: 'Scheduled Maintenance',
     // Description of the maintenance, will be shown at status page
-    body: 'This is a test maintenance, server software upgrade',
+    body: 'The server will be undergoing regular maintenance.',
     // Start time of the maintenance, in UNIX timestamp or ISO 8601 format
-    start: '2025-04-27T00:00:00+08:00',
+    start: '2025-09-27T11:00:00.000Z',
     // [Optional] end time of the maintenance, in UNIX timestamp or ISO 8601 format
     // if not specified, the maintenance will be considered as on-going
-    end: '2025-04-30T00:00:00+08:00',
+    end: '2025-09-27T12:00:00.000Z',
     // [Optional] color of the maintenance alert at status page, default to "yellow"
-    color: 'blue',
+    color: 'yellow',
   },
 ]
 
-// Don't forget this, otherwise compilation fails.
 export { pageConfig, workerConfig, maintenances }
