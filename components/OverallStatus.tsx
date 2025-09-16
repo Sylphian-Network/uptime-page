@@ -1,5 +1,5 @@
 import { MaintenanceConfig, MonitorTarget } from '@/types/config'
-import { Box, Center, Container, Stack, Title } from '@mantine/core'
+import { Center, Container, Title } from '@mantine/core'
 import { IconCircleCheck, IconAlertCircle } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import MaintenanceAlert from './MaintenanceAlert'
@@ -92,20 +92,28 @@ export default function OverallStatus({
       {/* Active Maintenance */}
       {activeMaintenances.length > 0 && (
         <>
-          <Title order={3} mt="lg" style={{ textAlign: 'center', color: 'gray' }}>
+          <Title order={3} mt="lg" style={{ textAlign: 'center', color: '#b91c1c' }}>
             Ongoing Maintenance
           </Title>
-          <Box style={{ maxHeight: 300, overflowY: 'auto', margin: '0 auto' }}>
-            <Stack gap="md">
-              {activeMaintenances.map((maintenance, idx) => (
-                <MaintenanceAlert
-                  key={`active-${idx}`}
-                  maintenance={maintenance}
-                  style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
-                />
-              ))}
-            </Stack>
-          </Box>
+          <MaintenanceAlert
+            maintenance={{
+              title: activeMaintenances.length > 1 ? 'Multiple ongoing maintenances' : activeMaintenances[0].title,
+              body: activeMaintenances
+                .map(
+                  (m) =>
+                    `• ${m.title || 'Scheduled Maintenance'}: ${m.body} (${new Date(
+                      m.start
+                    ).toLocaleString()} — ${m.end ? new Date(m.end).toLocaleString() : 'ongoing'})` +
+                    (m.monitors && m.monitors.length > 0
+                      ? `\n  Affected: ${m.monitors.map((mon) => mon.name).join(', ')}`
+                      : '')
+                )
+                .join('\n\n'),
+              start: activeMaintenances[0].start,
+              end: activeMaintenances[0].end,
+            }}
+            style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+          />
         </>
       )}
 
@@ -115,18 +123,26 @@ export default function OverallStatus({
           <Title order={3} mt="lg" style={{ textAlign: 'center', color: '#eab308' }}>
             Upcoming Maintenance
           </Title>
-          <Box style={{ maxHeight: 300, overflowY: 'auto', margin: '0 auto' }}>
-            <Stack gap="md">
-              {upcomingMaintenances.map((maintenance, idx) => (
-                <MaintenanceAlert
-                  key={`upcoming-${idx}`}
-                  maintenance={maintenance}
-                  style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
-                  upcoming
-                />
-              ))}
-            </Stack>
-          </Box>
+          <MaintenanceAlert
+            maintenance={{
+              title: upcomingMaintenances.length > 1 ? 'Multiple upcoming maintenances' : upcomingMaintenances[0].title,
+              body: upcomingMaintenances
+                .map(
+                  (m) =>
+                    `• ${m.title || 'Scheduled Maintenance'}: ${m.body} (${new Date(
+                      m.start
+                    ).toLocaleString()} — ${m.end ? new Date(m.end).toLocaleString() : 'upcoming'})` +
+                    (m.monitors && m.monitors.length > 0
+                      ? `\n  Affected: ${m.monitors.map((mon) => mon.name).join(', ')}`
+                      : '')
+                )
+                .join('\n\n'),
+              start: upcomingMaintenances[0].start,
+              end: upcomingMaintenances[0].end,
+            }}
+            style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+            upcoming
+          />
         </>
       )}
     </Container>

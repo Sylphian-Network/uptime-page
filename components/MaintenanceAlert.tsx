@@ -53,7 +53,7 @@ export default function MaintenanceAlert({
       </div>
 
       {/* Maintenance description */}
-      <Text>{maintenance.body}</Text>
+      <Text style={{ whiteSpace: 'pre-line' }}>{maintenance.body}</Text>
 
       {/* Affected components */}
       {maintenance.monitors && maintenance.monitors.length > 0 && (
