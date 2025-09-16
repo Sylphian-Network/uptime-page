@@ -76,17 +76,31 @@ const maintenances: MaintenanceConfig[] = [
   },
   {
     monitors: ['forum_monitor'],
-    title: 'Scheduled Maintenance',
+    title: 'Test Scheduled Maintenance',
     body: 'The server will be undergoing regular maintenance.',
     start: '2025-10-27T12:00:00.000Z',
     end: '2025-10-27T13:00:00.000Z',
   },
   {
     monitors: ['forum_monitor'],
-    title: 'Scheduled Maintenance',
+    title: 'Test Scheduled Maintenance',
     body: 'The server will be undergoing regular maintenance.',
     start: '2025-12-27T13:00:00.000Z',
     end: '2025-12-27T14:00:00.000Z',
+  },
+  {
+    monitors: ['forum_monitor'],
+    title: 'Test Active Scheduled Maintenance',
+    body: 'The server will be undergoing regular maintenance.',
+    start: '2025-09-16T14:00:00.000Z',
+    end: '2025-09-27T15:00:00.000Z',
+  },
+  {
+    monitors: ['forum_monitor'],
+    title: 'Test Active Scheduled Maintenance',
+    body: 'The server will be undergoing regular maintenance.',
+    start: '2025-10-16T15:00:00.000Z',
+    end: '2025-10-27T16:00:00.000Z',
   }
 ]
 

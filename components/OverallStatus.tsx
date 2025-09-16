@@ -1,5 +1,5 @@
 import { MaintenanceConfig, MonitorTarget } from '@/types/config'
-import { Center, Container, Title } from '@mantine/core'
+import { Box, Center, Container, Stack, Title } from '@mantine/core'
 import { IconCircleCheck, IconAlertCircle } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import MaintenanceAlert from './MaintenanceAlert'
@@ -92,16 +92,20 @@ export default function OverallStatus({
       {/* Active Maintenance */}
       {activeMaintenances.length > 0 && (
         <>
-          <Title order={3} mt="lg" style={{ textAlign: 'center', color: '#b91c1c' }}>
+          <Title order={3} mt="lg" style={{ textAlign: 'center', color: 'gray' }}>
             Ongoing Maintenance
           </Title>
-          {activeMaintenances.map((maintenance, idx) => (
-            <MaintenanceAlert
-              key={`active-${idx}`}
-              maintenance={maintenance}
-              style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
-            />
-          ))}
+          <Box style={{ maxHeight: 300, overflowY: 'auto', margin: '0 auto' }}>
+            <Stack gap="md">
+              {activeMaintenances.map((maintenance, idx) => (
+                <MaintenanceAlert
+                  key={`active-${idx}`}
+                  maintenance={maintenance}
+                  style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+                />
+              ))}
+            </Stack>
+          </Box>
         </>
       )}
 
@@ -111,14 +115,18 @@ export default function OverallStatus({
           <Title order={3} mt="lg" style={{ textAlign: 'center', color: '#eab308' }}>
             Upcoming Maintenance
           </Title>
-          {upcomingMaintenances.map((maintenance, idx) => (
-            <MaintenanceAlert
-              key={`upcoming-${idx}`}
-              maintenance={maintenance}
-              style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
-              upcoming
-            />
-          ))}
+          <Box style={{ maxHeight: 300, overflowY: 'auto', margin: '0 auto' }}>
+            <Stack gap="md">
+              {upcomingMaintenances.map((maintenance, idx) => (
+                <MaintenanceAlert
+                  key={`upcoming-${idx}`}
+                  maintenance={maintenance}
+                  style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+                  upcoming
+                />
+              ))}
+            </Stack>
+          </Box>
         </>
       )}
     </Container>
