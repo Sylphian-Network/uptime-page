@@ -29,20 +29,7 @@ const workerConfig: WorkerConfig = {
       responseForbiddenKeyword: 'bad gateway',
       checkProxy: 'worker://weur',
       checkProxyFallback: true,
-    },
-    {
-      id: 'test_monitor',
-      name: 'Cloudflare',
-      method: 'GET',
-      target: 'https://cloudflare.net',
-      statusPageLink: 'https://cloudflare.net',
-      hideLatencyChart: true,
-      expectedCodes: [200],
-      timeout: 5000,
-      headers: {
-        'User-Agent': 'Sylphian-Uptimeflare',
-      },
-    },
+    }
   ],
   notification: {
   },
@@ -81,34 +68,6 @@ const maintenances: MaintenanceConfig[] = [
     start: '2025-09-27T11:00:00.000Z',
     end: '2025-09-27T12:00:00.000Z',
     color: 'yellow',
-  },
-  {
-    monitors: ['test_monitor'],
-    title: 'Test Scheduled Maintenance',
-    body: 'The server will be undergoing regular maintenance.',
-    start: '2025-10-27T12:00:00.000Z',
-    end: '2025-10-27T13:00:00.000Z',
-  },
-  {
-    monitors: ['test_monitor'],
-    title: 'Test Scheduled Maintenance',
-    body: 'The server will be undergoing regular maintenance.',
-    start: '2025-12-27T13:00:00.000Z',
-    end: '2025-12-27T14:00:00.000Z',
-  },
-  {
-    monitors: ['test_monitor'],
-    title: 'Test Active Scheduled Maintenance',
-    body: 'The server will be undergoing regular maintenance.',
-    start: '2025-09-16T14:00:00.000Z',
-    end: '2025-09-27T15:00:00.000Z',
-  },
-  {
-    monitors: ['test_monitor'],
-    title: 'Test Active Scheduled Maintenance',
-    body: 'The server will be undergoing regular maintenance.',
-    start: '2025-10-16T15:00:00.000Z',
-    end: '2025-10-27T16:00:00.000Z',
   }
 ]
 

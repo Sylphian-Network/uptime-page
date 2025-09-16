@@ -19,7 +19,7 @@ export default function MaintenanceAlert({
           ? `Upcoming Maintenance: ${maintenance.title || 'Scheduled Maintenance'}`
           : maintenance.title || 'Scheduled Maintenance'
       }
-      color={upcoming ? 'blue' : maintenance.color || 'yellow'}
+      color={upcoming ? 'gray' : maintenance.color || '#f29030'}
       withCloseButton={false}
       style={{ position: 'relative', margin: '16px auto 0 auto', ...style }}
     >

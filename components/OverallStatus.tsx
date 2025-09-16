@@ -96,7 +96,7 @@ export default function OverallStatus({
       {activeMaintenances.length > 0 && (
         <>
           <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: '1rem' }}>
-            <Title order={3} style={{ color: '#b91c1c' }}>
+            <Title order={3} style={{ color: '#f29030' }}>
               Ongoing Maintenance
             </Title>
             <Button variant="subtle" size="xs" onClick={() => setActiveOpen((o) => !o)}>
@@ -119,7 +119,7 @@ export default function OverallStatus({
       {upcomingMaintenances.length > 0 && (
         <>
           <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: '1rem' }}>
-            <Title order={3} style={{ color: '#eab308' }}>
+            <Title order={3} style={{ color: 'gray' }}>
               Upcoming Maintenance
             </Title>
             <Button variant="subtle" size="xs" onClick={() => setUpcomingOpen((o) => !o)}>
