@@ -58,15 +58,23 @@ export default function OverallStatus({
   })
 
   const now = new Date()
-  let filteredMaintenances: (Omit<MaintenanceConfig, 'monitors'> & { monitors?: MonitorTarget[] })[] =
-    maintenances
-      .filter((m) => now >= new Date(m.start) && (!m.end || now <= new Date(m.end)))
-      .map((maintenance) => ({
-        ...maintenance,
-        monitors: maintenance.monitors?.map(
-          (monitorId) => monitors.find((mon) => monitorId === mon.id)!
-        ),
-      }))
+  const activeMaintenances = maintenances
+    .filter((m) => now >= new Date(m.start) && (!m.end || now <= new Date(m.end)))
+    .map((maintenance) => ({
+      ...maintenance,
+      monitors: maintenance.monitors?.map(
+        (monitorId) => monitors.find((mon) => monitorId === mon.id)!
+      ),
+    }))
+
+  const upcomingMaintenances = maintenances
+    .filter((m) => now < new Date(m.start))
+    .map((maintenance) => ({
+      ...maintenance,
+      monitors: maintenance.monitors?.map(
+        (monitorId) => monitors.find((mon) => monitorId === mon.id)!
+      ),
+    }))
 
   return (
     <Container size="md" mt="xl">
@@ -81,13 +89,38 @@ export default function OverallStatus({
         } sec ago)`}
       </Title>
 
-      {filteredMaintenances.map((maintenance, idx) => (
-        <MaintenanceAlert
-          key={idx}
-          maintenance={maintenance}
-          style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
-        />
-      ))}
+      {/* Active Maintenance */}
+      {activeMaintenances.length > 0 && (
+        <>
+          <Title order={3} mt="lg" style={{ textAlign: 'center', color: '#b91c1c' }}>
+            Ongoing Maintenance
+          </Title>
+          {activeMaintenances.map((maintenance, idx) => (
+            <MaintenanceAlert
+              key={`active-${idx}`}
+              maintenance={maintenance}
+              style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+            />
+          ))}
+        </>
+      )}
+
+      {/* Upcoming Maintenance */}
+      {upcomingMaintenances.length > 0 && (
+        <>
+          <Title order={3} mt="lg" style={{ textAlign: 'center', color: '#eab308' }}>
+            Upcoming Maintenance
+          </Title>
+          {upcomingMaintenances.map((maintenance, idx) => (
+            <MaintenanceAlert
+              key={`upcoming-${idx}`}
+              maintenance={maintenance}
+              style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+              upcoming
+            />
+          ))}
+        </>
+      )}
     </Container>
   )
 }

@@ -5,15 +5,21 @@ import { MaintenanceConfig, MonitorTarget } from '@/types/config'
 export default function MaintenanceAlert({
   maintenance,
   style,
+  upcoming = false,
 }: {
   maintenance: Omit<MaintenanceConfig, 'monitors'> & { monitors?: MonitorTarget[] }
   style?: React.CSSProperties
+  upcoming?: boolean
 }) {
   return (
     <Alert
       icon={<IconAlertTriangle />}
-      title={maintenance.title || 'Scheduled Maintenance'}
-      color={maintenance.color || 'yellow'}
+      title={
+        upcoming
+          ? `Upcoming Maintenance: ${maintenance.title || 'Scheduled Maintenance'}`
+          : maintenance.title || 'Scheduled Maintenance'
+      }
+      color={upcoming ? 'blue' : maintenance.color || 'yellow'}
       withCloseButton={false}
       style={{ position: 'relative', margin: '16px auto 0 auto', ...style }}
     >
@@ -29,13 +35,27 @@ export default function MaintenanceAlert({
           borderRadius: 6,
         }}
       >
-        <b>From:</b> {new Date(maintenance.start).toLocaleString()}
-        <br />
-        <b>To:</b>{' '}
-        {maintenance.end ? new Date(maintenance.end).toLocaleString() : 'Until further notice'}
+        {upcoming ? (
+          <>
+            <b>Scheduled for:</b> {new Date(maintenance.start).toLocaleString()}
+            <br />
+            <b>Expected end:</b>{' '}
+            {maintenance.end ? new Date(maintenance.end).toLocaleString() : 'Until further notice'}
+          </>
+        ) : (
+          <>
+            <b>From:</b> {new Date(maintenance.start).toLocaleString()}
+            <br />
+            <b>To:</b>{' '}
+            {maintenance.end ? new Date(maintenance.end).toLocaleString() : 'Until further notice'}
+          </>
+        )}
       </div>
 
+      {/* Maintenance description */}
       <Text>{maintenance.body}</Text>
+
+      {/* Affected components */}
       {maintenance.monitors && maintenance.monitors.length > 0 && (
         <>
           <Text mt="xs">
