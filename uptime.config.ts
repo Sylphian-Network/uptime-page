@@ -30,6 +30,19 @@ const workerConfig: WorkerConfig = {
       checkProxy: 'worker://weur',
       checkProxyFallback: true,
     },
+    {
+      id: 'test_monitor',
+      name: 'Cloudflare',
+      method: 'GET',
+      target: 'https://cloudflare.net',
+      statusPageLink: 'https://cloudflare.net',
+      hideLatencyChart: true,
+      expectedCodes: [200],
+      timeout: 5000,
+      headers: {
+        'User-Agent': 'Sylphian-Uptimeflare',
+      },
+    },
   ],
   notification: {
   },
@@ -60,11 +73,6 @@ const workerConfig: WorkerConfig = {
   },
 }
 
-// You can define multiple maintenances here
-// During maintenance, an alert will be shown at status page
-// Also, related downtime notifications will be skipped (if any)
-// Of course, you can leave it empty if you don't need this feature
-// const maintenances: MaintenanceConfig[] = []
 const maintenances: MaintenanceConfig[] = [
   {
     monitors: ['forum_monitor'],
@@ -75,28 +83,28 @@ const maintenances: MaintenanceConfig[] = [
     color: 'yellow',
   },
   {
-    monitors: ['forum_monitor'],
+    monitors: ['test_monitor'],
     title: 'Test Scheduled Maintenance',
     body: 'The server will be undergoing regular maintenance.',
     start: '2025-10-27T12:00:00.000Z',
     end: '2025-10-27T13:00:00.000Z',
   },
   {
-    monitors: ['forum_monitor'],
+    monitors: ['test_monitor'],
     title: 'Test Scheduled Maintenance',
     body: 'The server will be undergoing regular maintenance.',
     start: '2025-12-27T13:00:00.000Z',
     end: '2025-12-27T14:00:00.000Z',
   },
   {
-    monitors: ['forum_monitor'],
+    monitors: ['test_monitor'],
     title: 'Test Active Scheduled Maintenance',
     body: 'The server will be undergoing regular maintenance.',
     start: '2025-09-16T14:00:00.000Z',
     end: '2025-09-27T15:00:00.000Z',
   },
   {
-    monitors: ['forum_monitor'],
+    monitors: ['test_monitor'],
     title: 'Test Active Scheduled Maintenance',
     body: 'The server will be undergoing regular maintenance.',
     start: '2025-10-16T15:00:00.000Z',
