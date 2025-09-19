@@ -8,6 +8,9 @@ const pageConfig: PageConfig = {
   group: {
     'Website': ['forum_monitor'],
   },
+  maintenances: {
+    upcomingColor: "gray"
+  }
 }
 
 const workerConfig: WorkerConfig = {
