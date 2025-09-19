@@ -58,25 +58,12 @@ export default function MaintenanceAlert({
             minWidth: 120,
           }}
         >
-          {upcoming ? (
-            <>
-              <b>Scheduled for:</b> {new Date(maintenance.start).toLocaleString()}
-              <br />
-              <b>Expected end:</b>{' '}
-              {maintenance.end
-                ? new Date(maintenance.end).toLocaleString()
-                : 'Until further notice'}
-            </>
-          ) : (
-            <>
-              <b>From:</b> {new Date(maintenance.start).toLocaleString()}
-              <br />
-              <b>To:</b>{' '}
-              {maintenance.end
-                ? new Date(maintenance.end).toLocaleString()
-                : 'Until further notice'}
-            </>
-          )}
+          <b>{upcoming ? 'Scheduled for' : 'From'}:</b> {new Date(maintenance.start).toLocaleString()}
+          <br />
+          <b>{upcoming ? 'Expected end' : 'To'}:</b>{' '}
+          {maintenance.end
+            ? new Date(maintenance.end).toLocaleString()
+            : 'Until further notice'}
         </Box>
       </Group>
     </Alert>
