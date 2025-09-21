@@ -25,8 +25,10 @@ export default function Header({ style }: { style?: React.CSSProperties }) {
     <header className={classes.header} style={style}>
       <Container size="md" className={classes.inner}>
         <div>
-          <Link href="/" passHref>
-            <Text size="xl" span fw={700} component="a">{"Sylphian's Uptime"}</Text>
+          <Link href="/">
+            <Text size="xl" span fw={700} style={{ cursor: 'pointer', color: 'inherit', textDecoration: 'none' }}>
+              {"Sylphian's Uptime"}
+            </Text>
           </Link>
         </div>
 
