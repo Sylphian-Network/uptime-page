@@ -8,7 +8,7 @@ const pageConfig: PageConfig = {
   group: {
     'Website': ['forum_monitor'],
   },
-  favicon: 'https://sylphian.net/data/assets/logo/FAVICONWHITE.webp',
+  favicon: '/favicon.png',
   maintenances: {
     upcomingColor: "gray"
   }
