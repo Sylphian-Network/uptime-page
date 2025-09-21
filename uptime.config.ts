@@ -10,7 +10,8 @@ const pageConfig: PageConfig = {
   },
   favicon: '/favicon.png',
   maintenances: {
-    upcomingColor: "gray"
+    upcomingColor: "gray",
+    upcomingWindowDays: 30,
   }
 }
 

@@ -7,6 +7,7 @@ export type PageConfig = {
   favicon?: string
   maintenances?: {
     upcomingColor?: string | null
+    upcomingWindowDays?: number
   }
 }
 

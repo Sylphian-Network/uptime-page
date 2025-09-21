@@ -58,6 +58,9 @@ export default function OverallStatus({
   })
 
   const now = new Date()
+  const cutoffDate = new Date(now)
+
+  cutoffDate.setDate(now.getDate() + (pageConfig.maintenances?.upcomingWindowDays ?? 30))
 
   const activeMaintenances: (Omit<MaintenanceConfig, 'monitors'> & { monitors?: MonitorTarget[] })[] = maintenances
     .filter((m) => now >= new Date(m.start) && (!m.end || now <= new Date(m.end)))
@@ -69,7 +72,11 @@ export default function OverallStatus({
     }))
 
   const upcomingMaintenances: (Omit<MaintenanceConfig, 'monitors'> & { monitors?: MonitorTarget[] })[] = maintenances
-    .filter((m) => now < new Date(m.start))
+    .filter((m) => {
+      const start = new Date(m.start)
+      return start > now && start <= cutoffDate
+    })
+    .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
     .map((maintenance) => ({
       ...maintenance,
       monitors: maintenance.monitors?.map(
