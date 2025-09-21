@@ -24,23 +24,7 @@ export default function Header({ style }: { style?: React.CSSProperties }) {
     <header className={classes.header} style={style}>
       <Container size="md" className={classes.inner}>
         <div>
-          <a
-            href={location.pathname == '/' ? 'https://github.com/lyc8503/UptimeFlare' : '/'}
-            target={location.pathname == '/' ? '_blank' : undefined}
-          >
-            <Text size="xl" span>
-              🕒
-            </Text>
-            <Text
-              size="xl"
-              span
-              fw={700}
-              variant="gradient"
-              gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-            >
-              UptimeFlare
-            </Text>
-          </a>
+          <Text size="xl" span fw={700}>{"Sylphian's Uptime"}</Text>
         </div>
 
         <Group gap={5} visibleFrom="sm">
