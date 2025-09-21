@@ -4,9 +4,6 @@ export type PageConfig = {
   title?: string
   links?: PageConfigLink[]
   group?: PageConfigGroup
-  maintenances?: {
-    upcomingColor?: string | null
-  }
 }
 
 export type MaintenanceConfig = {

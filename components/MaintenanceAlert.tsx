@@ -1,72 +1,72 @@
-import { Alert, List, Text, Group, Box } from '@mantine/core'
+import { Alert, List, Text, useMantineTheme } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import { IconAlertTriangle } from '@tabler/icons-react'
 import { MaintenanceConfig, MonitorTarget } from '@/types/config'
-import { pageConfig } from '@/uptime.config'
 
 export default function MaintenanceAlert({
   maintenance,
   style,
-  upcoming = false,
 }: {
   maintenance: Omit<MaintenanceConfig, 'monitors'> & { monitors?: MonitorTarget[] }
   style?: React.CSSProperties
-  upcoming?: boolean
 }) {
+  const theme = useMantineTheme()
+  const isDesktop = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`)
+
   return (
     <Alert
       icon={<IconAlertTriangle />}
       title={
-        upcoming
-          ? `Upcoming Maintenance: ${maintenance.title || 'Scheduled Maintenance'}`
-          : maintenance.title || 'Scheduled Maintenance'
-      }
-      color={upcoming ? (pageConfig.maintenances?.upcomingColor ?? "gray") : maintenance.color || '#f29030'}
-      withCloseButton={false}
-      style={{ margin: '16px auto', ...style }}
-    >
-      {/* Body and dates in a responsive flex layout */}
-      <Group
-        align="flex-start"
-        style={{
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          gap: 16,
-          [`@media (max-width: 600px)`]: { gap: 8 },
-        }}
-      >
-        {/* Maintenance description and affected components */}
-        <Box style={{ flex: '1 1 300px', minWidth: 200 }}>
-          <Text style={{ whiteSpace: 'pre-line' }}>{maintenance.body}</Text>
-
-          {maintenance.monitors && maintenance.monitors.length > 0 && (
-            <>
-              <Text mt="xs"><b>Affected components:</b></Text>
-              <List size="sm" withPadding>
-                {maintenance.monitors.map((comp, idx) => (
-                  <List.Item key={idx}>{comp.name}</List.Item>
-                ))}
-              </List>
-            </>
-          )}
-        </Box>
-
-        {/* Date range */}
-        <Box
+        <span
           style={{
-            flex: '0 0 auto',
-            fontSize: '0.85rem',
-            textAlign: 'right',
-            minWidth: 120,
+            fontSize: '1rem',
+            fontWeight: 700,
           }}
         >
-          <b>{upcoming ? 'Scheduled for' : 'From'}:</b> {new Date(maintenance.start).toLocaleString()}
-          <br />
-          <b>{upcoming ? 'Expected end' : 'To'}:</b>{' '}
-          {maintenance.end
-            ? new Date(maintenance.end).toLocaleString()
-            : 'Until further notice'}
-        </Box>
-      </Group>
+          {maintenance.title || 'Scheduled Maintenance'}
+        </span>
+      }
+      color={maintenance.color || 'yellow'}
+      withCloseButton={false}
+      style={{ position: 'relative', margin: '16px auto 0 auto', ...style }}
+    >
+      {/* Date range in top right (desktop) or inline (mobile) */}
+      <div
+        style={{
+          ...{
+            top: 10,
+            fontSize: '0.85rem',
+            borderRadius: 6,
+          },
+          ...(isDesktop
+            ? {
+                position: 'absolute',
+                right: 10,
+                padding: '2px 8px',
+                textAlign: 'right',
+              }
+            : {}),
+        }}
+      >
+        <b>From:</b> {new Date(maintenance.start).toLocaleString()}
+        <br />
+        <b>To:</b>{' '}
+        {maintenance.end ? new Date(maintenance.end).toLocaleString() : 'Until further notice'}
+      </div>
+
+      <Text style={{ paddingTop: '3px' }}>{maintenance.body}</Text>
+      {maintenance.monitors && maintenance.monitors.length > 0 && (
+        <>
+          <Text mt="xs">
+            <b>Affected components:</b>
+          </Text>
+          <List size="sm" withPadding>
+            {maintenance.monitors.map((comp, compIdx) => (
+              <List.Item key={compIdx}>{comp.name}</List.Item>
+            ))}
+          </List>
+        </>
+      )}
     </Alert>
   )
 }
