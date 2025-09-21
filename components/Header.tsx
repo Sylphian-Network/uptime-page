@@ -2,6 +2,7 @@ import { Container, Group, Text } from '@mantine/core'
 import classes from '@/styles/Header.module.css'
 import { pageConfig } from '@/uptime.config'
 import { PageConfigLink } from '@/types/config'
+import Link from 'next/link'
 
 export default function Header({ style }: { style?: React.CSSProperties }) {
   const linkToElement = (link: PageConfigLink, i: number) => {
@@ -24,7 +25,9 @@ export default function Header({ style }: { style?: React.CSSProperties }) {
     <header className={classes.header} style={style}>
       <Container size="md" className={classes.inner}>
         <div>
-          <Text size="xl" span fw={700}>{"Sylphian's Uptime"}</Text>
+          <Link href="/" passHref>
+            <Text size="xl" span fw={700} component="a">{"Sylphian's Uptime"}</Text>
+          </Link>
         </div>
 
         <Group gap={5} visibleFrom="sm">
