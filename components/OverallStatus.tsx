@@ -45,6 +45,7 @@ export default function OverallStatus({
   const [openTime] = useState(Math.round(Date.now() / 1000))
   const [currentTime, setCurrentTime] = useState(Math.round(Date.now() / 1000))
   const isWindowVisible = useWindowVisibility()
+  const [expandUpcoming, setExpandUpcoming] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,11 +59,10 @@ export default function OverallStatus({
   })
 
   const now = new Date()
-  const cutoffDate = new Date(now)
 
-  cutoffDate.setDate(now.getDate() + (pageConfig.maintenances?.upcomingWindowDays ?? 30))
-
-  const activeMaintenances: (Omit<MaintenanceConfig, 'monitors'> & { monitors?: MonitorTarget[] })[] = maintenances
+  const activeMaintenances: (Omit<MaintenanceConfig, 'monitors'> & {
+    monitors?: MonitorTarget[]
+  })[] = maintenances
     .filter((m) => now >= new Date(m.start) && (!m.end || now <= new Date(m.end)))
     .map((maintenance) => ({
       ...maintenance,
@@ -71,21 +71,16 @@ export default function OverallStatus({
       ),
     }))
 
-  const upcomingMaintenances: (Omit<MaintenanceConfig, 'monitors'> & { monitors?: MonitorTarget[] })[] = maintenances
-    .filter((m) => {
-      const start = new Date(m.start)
-      return start > now && start <= cutoffDate
-    })
-    .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
+  const upcomingMaintenances: (Omit<MaintenanceConfig, 'monitors'> & {
+    monitors?: MonitorTarget[]
+  })[] = maintenances
+    .filter((m) => now < new Date(m.start))
     .map((maintenance) => ({
       ...maintenance,
       monitors: maintenance.monitors?.map(
         (monitorId) => monitors.find((mon) => monitorId === mon.id)!
       ),
     }))
-
-  const [activeOpen, setActiveOpen] = useState(true)
-  const [upcomingOpen, setUpcomingOpen] = useState(false)
 
   return (
     <Container size="md" mt="xl">
@@ -100,41 +95,20 @@ export default function OverallStatus({
         } sec ago)`}
       </Title>
 
-      {/* Active Maintenance */}
-      {activeMaintenances.length > 0 && (
-        <>
-          <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: '1rem' }}>
-            <Title order={3} style={{ color: '#f29030' }}>
-              Ongoing Maintenance
-            </Title>
-            <Button variant="subtle" size="xs" onClick={() => setActiveOpen((o) => !o)}>
-              {activeOpen ? <IconMinus size={16} /> : <IconPlus size={16} />}
-            </Button>
-          </Box>
-          <Collapse in={activeOpen}>
-            {activeMaintenances.map((maintenance, idx) => (
-              <MaintenanceAlert
-                key={`active-${idx}`}
-                maintenance={maintenance}
-                style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
-              />
-            ))}
-          </Collapse>
-        </>
-      )}
-
       {/* Upcoming Maintenance */}
       {upcomingMaintenances.length > 0 && (
         <>
-          <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: '1rem' }}>
-            <Title order={3} style={{ color: 'gray' }}>
-              Upcoming Maintenance
-            </Title>
-            <Button variant="subtle" size="xs" onClick={() => setUpcomingOpen((o) => !o)}>
-              {upcomingOpen ? <IconMinus size={16} /> : <IconPlus size={16} />}
-            </Button>
-          </Box>
-          <Collapse in={upcomingOpen}>
+          <Title mt="4px" style={{ textAlign: 'center', color: '#70778c' }} order={5}>
+            {`${upcomingMaintenances.length} upcoming maintenances`}{' '}
+            <span
+              style={{ textDecoration: 'underline' }}
+              onClick={() => setExpandUpcoming(!expandUpcoming)}
+            >
+              {expandUpcoming ? '[HIDE]' : '[SHOW]'}
+            </span>
+          </Title>
+
+          <Collapse in={expandUpcoming}>
             {upcomingMaintenances.map((maintenance, idx) => (
               <MaintenanceAlert
                 key={`upcoming-${idx}`}
@@ -146,6 +120,15 @@ export default function OverallStatus({
           </Collapse>
         </>
       )}
+
+      {/* Active Maintenance */}
+      {activeMaintenances.map((maintenance, idx) => (
+        <MaintenanceAlert
+          key={`active-${idx}`}
+          maintenance={maintenance}
+          style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+        />
+      ))}
     </Container>
   )
 }
