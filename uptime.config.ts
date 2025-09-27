@@ -11,7 +11,6 @@ const pageConfig: PageConfig = {
   favicon: '/favicon.png',
   maintenances: {
     upcomingColor: "gray",
-    upcomingWindowDays: 30,
   }
 }
 
