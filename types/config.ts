@@ -6,8 +6,7 @@ export type PageConfig = {
   group?: PageConfigGroup
   favicon?: string
   maintenances?: {
-    upcomingColor?: string | null
-    upcomingWindowDays?: number
+    upcomingColor?: string
   }
 }
 
