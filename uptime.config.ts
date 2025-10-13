@@ -72,6 +72,14 @@ const maintenances: MaintenanceConfig[] = [
     start: '2025-09-27T11:00:00.000Z',
     end: '2025-09-27T12:00:00.000Z',
     color: 'yellow',
+  },
+  {
+    monitors: ['forum_monitor'],
+    title: 'Scheduled Maintenance',
+    body: 'The server will be undergoing regular maintenance.',
+    start: '2025-10-25T11:00:00.000Z',
+    end: '2025-10-25T11:30:00.000Z',
+    color: 'yellow',
   }
 ]
 
