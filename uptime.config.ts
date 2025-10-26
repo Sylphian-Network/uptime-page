@@ -7,6 +7,7 @@ const pageConfig: PageConfig = {
   ],
   group: {
     'Website': ['forum_monitor'],
+    'Dev Website': ['dev_forum_monitor'],
   },
   favicon: '/favicon.png',
   maintenances: {
@@ -23,6 +24,23 @@ const workerConfig: WorkerConfig = {
       method: 'GET',
       target: 'https://sylphian.net',
       statusPageLink: 'https://sylphian.net',
+      hideLatencyChart: false,
+      expectedCodes: [200],
+      timeout: 5000,
+      headers: {
+        'User-Agent': 'Sylphian-Uptimeflare',
+      },
+      responseKeyword: 'Community platform by XenForo',
+      responseForbiddenKeyword: 'bad gateway',
+      checkProxy: 'worker://weur',
+      checkProxyFallback: true,
+    },
+    {
+      id: 'dev_forum_monitor',
+      name: 'dev.sylphian.net',
+      method: 'GET',
+      target: 'https://dev.sylphian.net',
+      statusPageLink: 'https://dev.sylphian.net',
       hideLatencyChart: false,
       expectedCodes: [200],
       timeout: 5000,
