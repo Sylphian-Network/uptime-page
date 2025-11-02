@@ -25,17 +25,20 @@ export default function Header({ style }: { style?: React.CSSProperties }) {
       <Container size="md" className={classes.inner}>
         <div>
           <a
-            href={location.pathname == '/' ? 'https://uptime.sylphian.net' : '/'}
+            href={location.pathname == '/' ? 'https://github.com/lyc8503/UptimeFlare' : '/'}
             target={location.pathname == '/' ? '_blank' : undefined}
           >
+            <Text size="xl" span>
+              🕒
+            </Text>
             <Text
               size="xl"
               span
               fw={700}
               variant="gradient"
-              gradient={{ from: '#356e4f', to: '#2f7b56', deg: 90 }}
+              gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
             >
-              Sylphian
+              UptimeFlare
             </Text>
           </a>
         </div>
