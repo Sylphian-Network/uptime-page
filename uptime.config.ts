@@ -26,7 +26,7 @@ const workerConfig: WorkerConfig = {
       statusPageLink: 'https://sylphian.net',
       hideLatencyChart: false,
       expectedCodes: [200],
-      timeout: 5000,
+      timeout: 15000,
       headers: {
         'User-Agent': 'Sylphian-Uptimeflare',
       },
@@ -43,7 +43,7 @@ const workerConfig: WorkerConfig = {
       statusPageLink: 'https://dev.sylphian.net',
       hideLatencyChart: false,
       expectedCodes: [200],
-      timeout: 5000,
+      timeout: 15000,
       headers: {
         'User-Agent': 'Sylphian-Uptimeflare',
       },
