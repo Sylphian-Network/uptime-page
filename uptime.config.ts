@@ -7,7 +7,7 @@ const pageConfig: PageConfig = {
   ],
   group: {
     'Sylphian': ['forum_monitor', 'prod_web_monitor', 'prod_database_monitor', 'prod_redis_monitor', 'prod_elasticsearch_monitor'],
-    'Sylphian DEV': ['dev_forum_monitor', 'web_monitor', 'database_monitor'],
+    'Sylphian DEV': ['dev_forum_monitor', 'dev_web_monitor', 'dev_database_monitor'],
   },
   favicon: '/favicon.png',
   maintenances: {
