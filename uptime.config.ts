@@ -193,8 +193,8 @@ const maintenances: MaintenanceConfig[] = [
     ],
     title: 'Scheduled Maintenance',
     body: 'The server will be undergoing regular maintenance.',
-    start: '2025-11-16T12:00:00.000Z',
-    end: '2025-11-16T12:30:00.000Z',
+    start: '2025-11-29T12:00:00.000Z',
+    end: '2025-11-29T12:30:00.000Z',
     color: 'yellow',
   }
 ]
