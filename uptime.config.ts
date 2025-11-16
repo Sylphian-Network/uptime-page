@@ -182,6 +182,20 @@ const maintenances: MaintenanceConfig[] = [
     start: '2025-10-25T11:00:00.000Z',
     end: '2025-10-25T11:30:00.000Z',
     color: 'yellow',
+  },
+  {
+    monitors: [
+      'forum_monitor',
+      'prod_web_monitor',
+      'prod_database_monitor',
+      'prod_redis_monitor',
+      'prod_elasticsearch_monitor'
+    ],
+    title: 'Scheduled Maintenance',
+    body: 'The server will be undergoing regular maintenance.',
+    start: '2025-11-16T12:00:00.000Z',
+    end: '2025-11-16T12:30:00.000Z',
+    color: 'yellow',
   }
 ]
 
